@@ -1,0 +1,25 @@
+Date: 4/6/2025
+Time: 16:13
+Phone Number: +5519971547538
+Message: Estoque em 2025-06-04: Esteira1: Na metade | Esteira2: Quase vazio | Esteira3: Cheio
+--------------------
+Date: 4/6/2025
+Time: 16:18
+Phone Number: +5519971547538
+Message: Estoque em 2025-06-04: Esteira1: 🟡 | Esteira2: 🔴 | Esteira3: 🟢
+--------------------
+Date: 4/6/2025
+Time: 16:18
+Phone Number: +5519971547538
+Message: Estoque em 2025-06-04: Esteira1: 🟡 | Esteira2: 🔴 | Esteira3: ⚫
+--------------------
+Date: 4/6/2025
+Time: 16:34
+Phone Number: +5519971547538
+Message: Estoque em 2025-06-04: Esteira1: 🟡 | Esteira2: 🔴 | Esteira3: ⚫
+--------------------
+Date: 5/6/2025
+Time: 16:28
+Phone Number: +55 19 99804-8226
+Message: vc achou que iria sair impune!
+--------------------
