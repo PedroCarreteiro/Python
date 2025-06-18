@@ -92,7 +92,7 @@ class Trator():
 #     int(input("Digite a potência do trator: ")),
 #     input("Qual o seu tipo de rodado? "),
 #     input("O trator tem combustível? "),
-#     input("Qual o seu tempo trabalhado? "),
+#     int(input("Qual o seu tempo trabalhado? ")),
 #     input("Qual a situação do motor? ")
 # )
 
