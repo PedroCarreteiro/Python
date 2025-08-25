@@ -1,10 +1,10 @@
 from fastapi import APIRouter
+from fastapi import HTTPException, status, Response, Depends
+import requests
+from models import Carro, CarroPatch
+from typing import Any
 
 router = APIRouter()
-
-@router.get("/api/v1/carro")
-async def get_cursos():
-    return {"info": "API está funcionando"}
 
 def fake_db():
     try:
@@ -14,7 +14,7 @@ def fake_db():
 
 carros = {
     1: {
-        "equipe": "1St Form",
+        "equipe": "1St Phorm",
         "marca": "Porsche",
         "modelo": "GT3",
         "potencia": 400,
@@ -24,65 +24,95 @@ carros = {
         "combustivel": 100
     },
     2: {
-        "nome": "Trafalgar D. Water Law",
-        "fruta": "Ope Ope no Mi",
-        "recompensa": 3000000000,
-        "funcao": "Capitão",
-        "foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwqkhBwpSnZ_lNQD52uhzDQbaw4rDZ9LLfFQ&s"
+        "equipe": "JOTA",
+        "marca": "Cadillac",
+        "modelo": "V-Series. R.",
+        "potencia": 600,
+        "cambio": "Sequencial",
+        "tracao": "Traseira",
+        "pneus": "Medios",
+        "combustivel": 70
     }
+    # 3: {
+    #     "equipe": "Penske",
+    #     "marca": "Porsche",
+    #     "modelo": "919",
+    #     "potencia": 600,
+    #     "cambio": "Sequencial",
+    #     "tracao": "Traseira",
+    #     "pneus": "Duros",
+    #     "combustivel": 30
+    # }
 }
 
 
-@app.get("/")
-def teste():
-    return {"Mensagem": "Deu certo"}
+@router.get("/jogadores", tags=["Jogadores"])
+def get_jogador():
+    response = requests.get(f"http://10.234.94.121:8000/jogadores")
+    # response = requests.get(f"http://192.168.71.1:8000/jogadores")
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"Message": "erro"}
 
-@app.get("/personagens")
-async def get_personagens(db: Any = Depends(fake_db)):
-    return personagens
+@router.get("/carros")
+async def get_carros(db: Any = Depends(fake_db)):
+    return carros
 
-@app.get("/personagens/{personagem_id}", description="Retorna 1 personagem com um ID específico ou um erro 404",
-         summary="Retorna um personagem especifico")
-async def get_personagem(personagem_id: int):
+@router.get("/carros/{carro_id}", description="Retorna 1 carro com um ID específico ou um erro 404",
+         summary="Retorna um carro especifico")
+async def get_carro(carro_id: int):
     try:
-        personagem = personagens[personagem_id]
-        return personagem
+        carro = carros[carro_id]
+        return carro
     except KeyError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail="Personagem não encontrado")
+                            detail="Carro não encontrado")
     
-@app.post("/personagens", status_code=status.HTTP_201_CREATED)
-async def post_personagem(personagem: PersonagensOnePiece):
-    next_id = len(personagens) + 1
+@router.post("/carros", status_code=status.HTTP_201_CREATED)
+async def post_carro(carro: Carro):
+    next_id = len(carros) + 1
 
-    personagens[next_id] = personagem
+    carros[next_id] = carro
 
-    del personagem.id
+    del carro.id
 
-    return personagem
+    return carro
 
-@app.put("/personagens/{personagem_id}", status_code=status.HTTP_202_ACCEPTED)
-async def put_personagem(personagem_id: int, personagem: PersonagensOnePiece):
-    if personagem_id in personagens:
-        personagens[personagem_id] = personagem
-        personagem.id = personagem_id
-        del personagem.id
-        return personagem
+@router.put("/carros/{carro_id}", status_code=status.HTTP_202_ACCEPTED)
+async def put_carro(carro_id: int, carro: Carro):
+    if carro_id in carros:
+        carros[carro_id] = carro
+        carro.id = carro_id
+        del carro.id
+        return carro
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail="Personagem não encontrado")
+                            detail="Carro não encontrado")
     
-@app.delete("/personagens/{personagem_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_personagem(personagem_id: int):
-    if personagem_id in personagens:
-        del personagens[personagem_id]
+@router.delete("/carros/{carro_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_carro(carro_id: int):
+    if carro_id in carros:
+        del carros[carro_id]
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail="Personagem não encontrado")
+                            detail="Carro não encontrado")
     
-@app.get("/calculadora")
-async def calcular(a: int, b: int):
-    soma = a + b
+@router.patch("/carros/{carro_id}", status_code=status.HTTP_202_ACCEPTED)
+async def patch_carro(carro_id: int, carro_patch: CarroPatch):
+    if carro_id in carros:
 
-    return {"Resultado = ": soma}
+        stored_carro_data = carros[carro_id]
+
+        update_data = carro_patch.model_dump(exclude_unset=True)
+
+        for key, value in update_data.items():
+            stored_carro_data[key] = value
+        
+        carros[carro_id] = stored_carro_data
+
+        return {"Patch Carro": carro_patch}
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                            detail="Carro não encontrado")
