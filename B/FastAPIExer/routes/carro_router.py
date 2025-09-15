@@ -46,14 +46,14 @@ carros = {
 }
 
 
-@router.get("/jogadores", tags=["Jogadores"])
-def get_jogador():
-    response = requests.get(f"http://10.234.94.121:8000/jogadores")
-    # response = requests.get(f"http://192.168.71.1:8000/jogadores")
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return {"Message": "erro"}
+# @router.get("/jogadores", tags=["Jogadores"])
+# def get_jogador():
+#     response = requests.get(f"http://10.234.94.121:8000/jogadores")
+#     # response = requests.get(f"http://192.168.71.1:8000/jogadores")
+#     if response.status_code == 200:
+#         return response.json()
+#     else:
+#         return {"Message": "erro"}
 
 @router.get("/carros")
 async def get_carros(db: Any = Depends(fake_db)):
