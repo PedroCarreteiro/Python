@@ -7,4 +7,4 @@ async def get_session() -> Generator:
     try:
         yield session
     finally:
-        await session.clone()
+        await session.close()

@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
 class Config:
     case_sensitive = False
-    env_file = "env"
+    env_file = ".venv"
 
 
 settings = Settings()
