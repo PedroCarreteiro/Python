@@ -4,7 +4,7 @@ from pydantic import BaseModel as SCBaseModel
 class EquipeSchema(SCBaseModel):
     
     id: Optional[int] = None
-    noome_equipe: str
+    nome_equipe: str
     nacionalidade_equipe: str
 
     class Config:

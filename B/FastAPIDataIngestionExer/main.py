@@ -3,7 +3,7 @@ from core.configs import settings
 from api.v1.api import api_router
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Turmas API com Banco")
+app = FastAPI(title="Carros de Corrida API com Banco")
 
 origins = ["http://localhost", "http://localhost:8080", "http://localhost:5500", "http://127.0.0.1:5500"]
 
