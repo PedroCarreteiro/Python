@@ -1,8 +1,8 @@
-async function get_equipes() {
-    await axios.get("http://127.0.0.1:8000/api/v1/carro/").then((response) => {
-        const equipes = response.data;
+async function get_carros() {
+    await axios.get("http://127.0.0.1:9000/api/v1/carro/").then((response) => {
+        const carro = response.data;
         const container = document.getElementById("carros")
-        equipes.forEach(element => {
+        carro.forEach(element => {
             const carroDiv = document.createElement('div');
             carroDiv.classList.add("carro");
             carroDiv.innerHTML = `
@@ -19,4 +19,4 @@ async function get_equipes() {
     })
 }
 
-get_equipes()
+get_carros()

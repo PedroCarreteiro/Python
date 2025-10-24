@@ -13,3 +13,4 @@ class CarroSchema(SCBaseModel):
     class Config:
         orm_mode = True
 
+

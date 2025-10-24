@@ -1,5 +1,5 @@
 async function get_equipes() {
-    await axios.get("http://127.0.0.1:8000/api/v1/equipe/").then((response) => {
+    await axios.get("http://127.0.0.1:9000/api/v1/equipe/").then((response) => {
         const equipes = response.data;
         const container = document.getElementById("equipes")
         equipes.forEach(element => {
