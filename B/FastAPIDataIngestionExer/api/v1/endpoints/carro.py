@@ -43,7 +43,7 @@ async def get_carro(id_carro: int, db: AsyncSession = Depends(get_session)):
         else:
             raise HTTPException(detail="Carro não encontrado", status_code=status.HTTP_404_NOT_FOUND)
         
-@router.get("/{id_equipe}", response_model=List[CarroSchema])
+@router.get("/equipe/{id_equipe}", response_model=List[CarroSchema])
 async def get_carros_equipe(id_equipe: int, db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(CarroModel).filter(CarroModel.id_equipe == id_equipe)
